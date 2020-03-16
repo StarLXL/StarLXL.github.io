@@ -1108,7 +1108,12 @@ regenerator_default.a.mark(function _callee2() {
 
                       transaction.extra = transaction.extra || {};
                       _context.next = 22;
-                      return tronWeb.trx.sign(transaction, false);
+                      return tronWeb.trx.sign(transaction, false)["catch"](function (error) {
+                        return {
+                          result: !error,
+                          error: error
+                        };
+                      });
 
                     case 22:
                       signedTransaction = _context.sent;
@@ -1226,7 +1231,7 @@ regenerator_default.a.mark(function _callee2() {
                     case 59:
                       unSignTransaction = _context.sent;
 
-                      if (!unSignTransaction.transaction) {
+                      if (!(unSignTransaction.transaction !== undefined)) {
                         _context.next = 74;
                         break;
                       }
