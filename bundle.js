@@ -132,7 +132,7 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                   switch (_context.prev = _context.next) {
                     case 0:
                       if (!(e && e.data && e.data.target === 'LEDGER-IFRAME')) {
-                        _context.next = 73;
+                        _context.next = 75;
                         break;
                       }
 
@@ -174,7 +174,7 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                       } //}
 
 
-                      _context.next = 73;
+                      _context.next = 75;
                       break;
 
                     case 13:
@@ -184,20 +184,27 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                       }
 
                       bridge.cleanUp();
-                      _context.next = 73;
+                      _context.next = 75;
                       break;
 
                     case 17:
                       if (!(e.data.action === 'sign transaction')) {
-                        _context.next = 26;
+                        _context.next = 28;
                         break;
                       }
 
                       transaction = e.data.data.transaction;
-                      _context.next = 21;
+
+                      if (!(transaction !== undefined)) {
+                        _context.next = 26;
+                        break;
+                      }
+
+                      transaction.extra = transaction.extra || {};
+                      _context.next = 23;
                       return tronWeb.trx.sign(transaction, false);
 
-                    case 21:
+                    case 23:
                       signedTransaction = _context.sent;
                       console.log(signedTransaction);
 
@@ -214,19 +221,20 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         });
                       }
 
-                      _context.next = 73;
+                    case 26:
+                      _context.next = 75;
                       break;
 
-                    case 26:
-                      _context.next = 28;
+                    case 28:
+                      _context.next = 30;
                       return bridge.getAddress();
 
-                    case 28:
+                    case 30:
                       _address = _context.sent;
                       from = e.data.data.fromAddress;
 
                       if (!(_address !== from)) {
-                        _context.next = 32;
+                        _context.next = 34;
                         break;
                       }
 
@@ -235,14 +243,14 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         error: 'address not match'
                       }));
 
-                    case 32:
+                    case 34:
                       if (!(e.data.action === 'send trx')) {
-                        _context.next = 43;
+                        _context.next = 45;
                         break;
                       }
 
                       _e$data$data = e.data.data, toAddress = _e$data$data.toAddress, fromAddress = _e$data$data.fromAddress, amount = _e$data$data.amount;
-                      _context.next = 36;
+                      _context.next = 38;
                       return tronWeb.trx.sendTransaction(toAddress, amount, {
                         address: fromAddress
                       }, function (error) {
@@ -252,7 +260,7 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         };
                       });
 
-                    case 36:
+                    case 38:
                       _ref4 = _context.sent;
                       _result = _ref4.result;
                       _ref4$error = _ref4.error;
@@ -261,17 +269,17 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         success: _result,
                         error: _error
                       });
-                      _context.next = 73;
+                      _context.next = 75;
                       break;
 
-                    case 43:
+                    case 45:
                       if (!(e.data.action === 'send trc10')) {
-                        _context.next = 54;
+                        _context.next = 56;
                         break;
                       }
 
                       _e$data$data2 = e.data.data, id = _e$data$data2.id, _toAddress = _e$data$data2.toAddress, _fromAddress = _e$data$data2.fromAddress, _amount = _e$data$data2.amount;
-                      _context.next = 47;
+                      _context.next = 49;
                       return tronWeb.trx.sendToken(_toAddress, _amount, id, {
                         address: _fromAddress
                       }, function (error) {
@@ -281,7 +289,7 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         };
                       });
 
-                    case 47:
+                    case 49:
                       _ref5 = _context.sent;
                       _result2 = _ref5.result;
                       _ref5$error = _ref5.error;
@@ -290,17 +298,17 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         success: _result2,
                         error: _error2
                       });
-                      _context.next = 73;
+                      _context.next = 75;
                       break;
 
-                    case 54:
+                    case 56:
                       if (!(e.data.action === 'send trc20')) {
-                        _context.next = 73;
+                        _context.next = 75;
                         break;
                       }
 
                       _e$data$data3 = e.data.data, _id = _e$data$data3.id, _toAddress2 = _e$data$data3.toAddress, _fromAddress2 = _e$data$data3.fromAddress, _amount2 = _e$data$data3.amount, decimals = _e$data$data3.decimals, TokenName = _e$data$data3.TokenName;
-                      _context.next = 58;
+                      _context.next = 60;
                       return tronWeb.transactionBuilder.triggerSmartContract(tronWeb.address.toHex(_id), 'transfer(address,uint256)', 10000000, 0, [{
                         type: 'address',
                         value: tronWeb.address.toHex(_toAddress2)
@@ -309,11 +317,11 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         value: _amount2
                       }], tronWeb.address.toHex(_fromAddress2));
 
-                    case 58:
+                    case 60:
                       unSignTransaction = _context.sent;
 
-                      if (!(unSignTransaction.transaction !== undefined)) {
-                        _context.next = 73;
+                      if (!unSignTransaction.transaction) {
+                        _context.next = 75;
                         break;
                       }
 
@@ -324,7 +332,7 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         token_name: TokenName,
                         amount: _amount2
                       };
-                      _context.next = 64;
+                      _context.next = 66;
                       return tronWeb.trx.sign(unSignTransaction, false)["catch"](function (error) {
                         return {
                           result: error ? false : true,
@@ -332,11 +340,11 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         };
                       });
 
-                    case 64:
+                    case 66:
                       _signedTransaction = _context.sent;
 
                       if (!(_signedTransaction.hasOwnProperty('result') && !_signedTransaction.result)) {
-                        _context.next = 69;
+                        _context.next = 71;
                         break;
                       }
 
@@ -344,14 +352,14 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         success: false,
                         error: _signedTransaction.error
                       });
-                      _context.next = 73;
+                      _context.next = 75;
                       break;
 
-                    case 69:
-                      _context.next = 71;
+                    case 71:
+                      _context.next = 73;
                       return tronWeb.trx.sendRawTransaction(_signedTransaction);
 
-                    case 71:
+                    case 73:
                       broadcast = _context.sent;
 
                       if (broadcast.result) {
@@ -360,7 +368,7 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
                         });
                       }
 
-                    case 73:
+                    case 75:
                     case "end":
                       return _context.stop();
                   }
